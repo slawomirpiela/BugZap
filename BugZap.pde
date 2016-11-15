@@ -1,5 +1,6 @@
   import processing.sound.*;
   SoundFile laser;
+  SoundFile boom;
   
   float bugX = random(20,500);
   float bugY = 5;
@@ -68,22 +69,28 @@ if (xpos >= 450){
   }
 
 void laser(){ 
-  if (keyCode == UP)
+  if (keyPressed && keyCode == UP)
   {
   laser = new SoundFile(this, "laser.mp3");
   laser.play();
+  laser.rate(2);
+  laser.amp(0.1);
   fill(255,(255),random(255));
   rect(xpos+10,-20,playerW-20, 500);
   }
   
   //If statement to check if laser hits then bug and if it does resets the bug
-  if(xpos > bugX-playerW && xpos < bugX + playerW && keyCode == UP)
+  if(xpos > bugX-playerW && xpos < bugX + playerW && keyPressed && keyCode == UP)
   {
       score += 1;
       ellipse(bugX, bugY, 100,100);
       bugX = random(0,500);
       bugY = 5;
       println("Your score is " +score);
+      boom = new SoundFile(this, "boom.mp3");
+      boom.play();
+      boom.rate(0.5);
+      boom.amp(0.1);
     }
   }
 
